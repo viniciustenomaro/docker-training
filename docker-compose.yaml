@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  server:
+    build: ./api-aspnet
+    container_name: api-aspnet
+    ports:
+      - "9000:80"
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo
+    container_name: mongodb
+  web:
+    build: ./web
+    container_name: web
+    ports:
+      - "9001:80"
+    depends_on:
+      - server
