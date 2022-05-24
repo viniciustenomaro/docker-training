@@ -1,0 +1,14 @@
+name: build-api-actions
+on: 
+  push: 
+    branches: 
+      - main
+
+jobs:
+  build-application:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -f ./api-aspnet/Dockerfile -t viniciustenomaro/docker-training-api:latest .
+      - run: docker login -u viniciustenomaro -p {{secrets.DOCKER_PASSWORD}}
+      - run: docker push viniciustenomaro/docker-training-api:latest
